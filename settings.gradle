@@ -1,0 +1,16 @@
+rootProject.name = 'reactive'
+
+include(':eureka-server',
+        ':zuul-gateway',
+
+        ':config-web',
+        ':config-domain',
+        ':config-yaml-importer',
+
+        ':auth',
+        ':docs',
+
+        ':member-web',
+        ':member-domain',
+
+        ':ping-web')

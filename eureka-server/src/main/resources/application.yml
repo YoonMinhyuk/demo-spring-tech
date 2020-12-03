@@ -1,0 +1,15 @@
+server:
+  port: 8787
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+
+  server:
+    renewal-percent-threshold: 0.85
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+    register-with-eureka: false
+    fetch-registry: false

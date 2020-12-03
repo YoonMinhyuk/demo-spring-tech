@@ -1,0 +1,17 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://127.0.0.1:8787/eureka}
+
+zuul:
+  routes:
+    ping-service:
+      path: /ping/**
+      service-id: ping
