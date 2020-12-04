@@ -1,7 +1,7 @@
 package me.demo.reactive.member.domain;
 
 import lombok.*;
-import me.demo.reactive.domain.domain.DomainDateTimeAudit;
+import me.demo.reactive.domain.model.DomainDateTimeAudit;
 import me.demo.reactive.member.exception.InvalidEmailException;
 import me.demo.reactive.member.exception.UnsupportedPlatformException;
 
