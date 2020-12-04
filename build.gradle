@@ -16,7 +16,7 @@ subprojects {
 
     final IS_EUREKA_SERVER = project.name == 'eureka-server'
     final IS_API_GATEWAY = project.name == 'zuul-gateway'
-    final IS_DOMAIN_MODULE = project.name.endsWith('domain')
+    final IS_DOMAIN_MODULE = project.name.endsWith('domain') && !project.name.contains('config')
     final IS_WEB_MODULE = project.name.endsWith('web')
 
     configurations {
@@ -71,7 +71,8 @@ subprojects {
             annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
             //java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
             annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
-            if (!project.name.contains('config')) api project(':config-domain')
+            api project(':config-domain')
+            api project(':config-i18n')
         }
     }
 
