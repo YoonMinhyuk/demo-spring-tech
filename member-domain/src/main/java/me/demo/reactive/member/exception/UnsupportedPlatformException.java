@@ -1,10 +1,10 @@
 package me.demo.reactive.member.exception;
 
 import me.demo.reactive.domainglobal.exception.BaseDomainException;
-import me.demo.reactive.member.exception.i18n.MemberI18nErrorCode;
+import me.demo.reactive.member.exception.code.MemberErrorCode;
 
 public class UnsupportedPlatformException extends BaseDomainException {
     public UnsupportedPlatformException() {
-        super(MemberI18nErrorCode.UNSUPPORTED_PLATFORM.getCode());
+        super(MemberErrorCode.UNSUPPORTED_PLATFORM.getCode());
     }
 }

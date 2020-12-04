@@ -1,11 +1,11 @@
-package me.demo.reactive.member.exception.i18n;
+package me.demo.reactive.member.exception.code;
 
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString
-public enum MemberI18nErrorCode {
+public enum MemberErrorCode {
     INVALID_EMAIL("member.email.invalid"),
     UNSUPPORTED_PLATFORM("member.platform.unsupported"),
     DUPLICATE_MEMBER("member.duplicate")
@@ -13,7 +13,7 @@ public enum MemberI18nErrorCode {
 
     private final String code;
 
-    MemberI18nErrorCode(final String code) {
+    MemberErrorCode(final String code) {
         this.code = code;
     }
 }
