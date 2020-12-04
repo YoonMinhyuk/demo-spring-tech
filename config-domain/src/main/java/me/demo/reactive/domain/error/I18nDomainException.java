@@ -1,42 +1,47 @@
 package me.demo.reactive.domain.error;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
 public class I18nDomainException extends RuntimeException {
-    private final I18nErrorCodeProvider provider;
+    private final I18nErrorCodeProvider i18nErrorCodeProvider;
 
     public I18nDomainException(
-            final I18nErrorCodeProvider provider,
+            final I18nErrorCodeProvider i18nErrorCodeProvider,
             final String messageInLog,
             final Throwable cause
     ) {
         super(messageInLog, cause);
-        this.provider = provider;
+        this.i18nErrorCodeProvider = i18nErrorCodeProvider;
     }
 
     public I18nDomainException(
-            final I18nErrorCodeProvider provider,
+            final I18nErrorCodeProvider i18nErrorCodeProvider,
             final Throwable cause
     ) {
-        this(provider, null, cause);
+        this(i18nErrorCodeProvider, null, cause);
     }
 
     public I18nDomainException(
-            final I18nErrorCodeProvider provider,
+            final I18nErrorCodeProvider i18nErrorCodeProvider,
             final String messageInLog
     ) {
-        this(provider, messageInLog, null);
+        this(i18nErrorCodeProvider, messageInLog, null);
     }
 
     public I18nDomainException(
-            final I18nErrorCodeProvider provider
+            final I18nErrorCodeProvider i18nErrorCodeProvider
     ) {
-        this(provider, null, null);
+        this(i18nErrorCodeProvider, null, null);
     }
 
     public String errorCode() {
-        return provider.errorCode();
+        return i18nErrorCodeProvider.errorCode();
     }
 
     public Object[] errorMessageArgs() {
-        return provider.errorMessageArgs();
+        return i18nErrorCodeProvider.errorMessageArgs();
     }
 }
