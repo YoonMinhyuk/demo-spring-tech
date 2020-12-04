@@ -4,7 +4,6 @@ include(':eureka-server',
         ':zuul-gateway',
 
         ':config-yaml-importer',
-        ':config-i18n',
         ':config-web',
         ':config-domain',
 

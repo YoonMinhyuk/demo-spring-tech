@@ -1,4 +1,4 @@
-package me.demo.reactive.i18n.config;
+package me.demo.reactive.web.adapter.config;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
