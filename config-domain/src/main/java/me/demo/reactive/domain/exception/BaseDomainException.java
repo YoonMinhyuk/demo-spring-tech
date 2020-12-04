@@ -1,4 +1,4 @@
-package me.demo.reactive.domainglobal.exception;
+package me.demo.reactive.domain.exception;
 
 import lombok.Getter;
 import lombok.ToString;

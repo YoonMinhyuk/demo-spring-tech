@@ -1,4 +1,4 @@
-package me.demo.reactive.domainglobal.adapter.config;
+package me.demo.reactive.domain.adapter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

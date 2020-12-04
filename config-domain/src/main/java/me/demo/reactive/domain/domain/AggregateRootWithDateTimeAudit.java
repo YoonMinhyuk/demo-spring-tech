@@ -1,12 +1,11 @@
-package me.demo.reactive.domainglobal.domain;
-
+package me.demo.reactive.domain.domain;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
@@ -17,16 +16,15 @@ import java.util.Optional;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
 @ToString
-public abstract class DomainDateTimeAudit {
+public class AggregateRootWithDateTimeAudit<A extends AbstractAggregateRoot<A>> extends AbstractAggregateRoot<A> {
     @CreatedDate
     private ZonedDateTime createdDateTime;
 
     @LastModifiedDate
     private ZonedDateTime lastModifiedDateTime;
 
-    public DomainDateTimeAudit(final ZonedDateTime createdDateTime) {
+    public AggregateRootWithDateTimeAudit(final ZonedDateTime createdDateTime) {
         setCreatedDateTime(createdDateTime);
         setLastModifiedDateTime(createdDateTime);
     }
