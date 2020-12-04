@@ -1,7 +1,9 @@
 package me.demo.reactive.i18n.config;
 
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.MessageSourceSupport;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
@@ -10,8 +12,10 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+@Configuration
 public class MessageSourceConfig {
     @Bean
+    @ConditionalOnMissingBean(ReloadableResourceBundleMessageSource.class)
     public MessageSourceSupport messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
