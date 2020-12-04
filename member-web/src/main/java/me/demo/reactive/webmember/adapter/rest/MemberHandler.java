@@ -3,7 +3,9 @@ package me.demo.reactive.webmember.adapter.rest;
 import lombok.RequiredArgsConstructor;
 import me.demo.reactive.member.application.command.MemberCommandAppService;
 import me.demo.reactive.member.exception.DuplicateMemberException;
+import me.demo.reactive.web.error.I18nErrorCodeProvider;
 import me.demo.reactive.web.error.I18nWebErrorHandler;
+import me.demo.reactive.webmember.constant.MemberI18nErrorCodes;
 import me.demo.reactive.webmember.spec.request.SignUpRequestSpec;
 import me.demo.reactive.webmember.spec.response.SignUpResponseSpec;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,7 @@ public class MemberHandler {
                       .map(memberRecord -> SignUpResponseSpec.of(memberCommandAppService.signUp(memberRecord)))
                       .onErrorMap(
                               DuplicateMemberException.class,
-                              throwable -> i18nWebErrorHandler.badRequest(throwable.getErrorCode(), throwable)
+                              throwable -> i18nWebErrorHandler.badRequest(MemberI18nErrorCodes.DUPLICATE_MEMBER, throwable)
                       )
                       .flatMap(signUpResponseSpec ->
                               ServerResponse.created(signUpResponseSpec.getSelfLinkUri()).bodyValue(signUpResponseSpec)

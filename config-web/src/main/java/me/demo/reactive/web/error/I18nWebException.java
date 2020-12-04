@@ -1,4 +1,4 @@
-package me.demo.reactive.web.exception;
+package me.demo.reactive.web.error;
 
 import lombok.ToString;
 import org.springframework.http.HttpStatus;

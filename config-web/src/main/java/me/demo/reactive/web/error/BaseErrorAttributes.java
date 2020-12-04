@@ -1,7 +1,6 @@
 package me.demo.reactive.web.error;
 
 import lombok.RequiredArgsConstructor;
-import me.demo.reactive.web.exception.I18nWebException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.context.MessageSource;
