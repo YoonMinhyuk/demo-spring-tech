@@ -3,6 +3,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.session:spring-session-data-redis'
     implementation 'io.lettuce:lettuce-core'
-    implementation project(':config-web')
+    implementation project(':basic-web')
 //        compile 'it.ozimov:embedded-redis:0.7.3'
 }

@@ -6,8 +6,8 @@ include(':eureka-server',
         ':config-yaml-importer',
         ':config-i18n',
 
-        ':config-web',
-        ':config-domain',
+        ':basic-web',
+        ':basic-domain',
 
         ':auth',
         ':docs',
