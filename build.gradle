@@ -19,14 +19,14 @@ subprojects {
     final IS_DOMAIN_MODULE = project.name.endsWith('domain')
     final IS_WEB_MODULE = project.name.endsWith('web')
 
-    configurations.all {
-        if (!IS_EUREKA_SERVER && !IS_API_GATEWAY) {
-            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
-        }
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-
     configurations {
+        all {
+            if (!IS_EUREKA_SERVER && !IS_API_GATEWAY) {
+                exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+            }
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+
         compileOnly {
             extendsFrom annotationProcessor
         }
@@ -38,6 +38,7 @@ subprojects {
 
     dependencies {
         if (!IS_EUREKA_SERVER && !IS_API_GATEWAY) {
+            implementation 'org.springframework.boot:spring-boot-starter'
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
             annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
