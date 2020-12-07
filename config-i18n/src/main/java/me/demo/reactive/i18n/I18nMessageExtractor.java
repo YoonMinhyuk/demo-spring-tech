@@ -14,8 +14,4 @@ public class I18nMessageExtractor {
     public String extract(final I18nMessageHint hint, final Locale locale) {
         return messageSource.getMessage(hint.getCode(), hint.getMessageArgs(), locale);
     }
-
-    public String extract(final I18nMessageHint hint) {
-        return extract(hint, Locale.getDefault());
-    }
 }

@@ -1,3 +1,7 @@
+dependencies {
+    implementation project(':config-i18n')
+}
+
 bootJar {
     enabled = false
 }
