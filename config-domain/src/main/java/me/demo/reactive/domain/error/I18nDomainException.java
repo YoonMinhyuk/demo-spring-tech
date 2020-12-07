@@ -2,46 +2,55 @@ package me.demo.reactive.domain.error;
 
 import lombok.Getter;
 import lombok.ToString;
+import me.demo.reactive.i18n.I18nMessageHint;
 
 @Getter
 @ToString
-public class I18nDomainException extends RuntimeException {
-    private final I18nErrorCodeProvider i18nErrorCodeProvider;
+public class I18nDomainException extends RuntimeException implements I18nMessageHint {
+    private final String i18nCode;
+    private final Object[] i18nMessageArgs;
 
     public I18nDomainException(
-            final I18nErrorCodeProvider i18nErrorCodeProvider,
+            final String i18nCode,
+            final Object[] i18nMessageArgs,
             final String messageInLog,
             final Throwable cause
     ) {
         super(messageInLog, cause);
-        this.i18nErrorCodeProvider = i18nErrorCodeProvider;
+        this.i18nCode = i18nCode;
+        this.i18nMessageArgs = i18nMessageArgs;
     }
 
     public I18nDomainException(
-            final I18nErrorCodeProvider i18nErrorCodeProvider,
+            final String i18nCode,
+            final Object[] i18nMessageArgs,
             final Throwable cause
     ) {
-        this(i18nErrorCodeProvider, null, cause);
+        this(i18nCode, i18nMessageArgs, null, cause);
     }
 
     public I18nDomainException(
-            final I18nErrorCodeProvider i18nErrorCodeProvider,
+            final String i18nCode,
+            final Object[] i18nMessageArgs,
             final String messageInLog
     ) {
-        this(i18nErrorCodeProvider, messageInLog, null);
+        this(i18nCode, i18nMessageArgs, messageInLog, null);
     }
 
     public I18nDomainException(
-            final I18nErrorCodeProvider i18nErrorCodeProvider
+            final String i18nCode,
+            final Object[] i18nMessageArgs
     ) {
-        this(i18nErrorCodeProvider, null, null);
+        this(i18nCode, i18nMessageArgs, null, null);
     }
 
-    public String errorCode() {
-        return i18nErrorCodeProvider.errorCode();
+    @Override
+    public String getCode() {
+        return getI18nCode();
     }
 
-    public Object[] errorMessageArgs() {
-        return i18nErrorCodeProvider.errorMessageArgs();
+    @Override
+    public Object[] getMessageArgs() {
+        return getI18nMessageArgs();
     }
 }

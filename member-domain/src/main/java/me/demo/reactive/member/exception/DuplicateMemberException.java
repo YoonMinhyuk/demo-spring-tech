@@ -5,6 +5,9 @@ import me.demo.reactive.member.constant.MemberI18nErrorCodes;
 
 public class DuplicateMemberException extends I18nDomainException {
     public DuplicateMemberException() {
-        super(MemberI18nErrorCodes.DUPLICATE_MEMBER);
+        super(
+                MemberI18nErrorCodes.DUPLICATE_MEMBER.getCode(),
+                MemberI18nErrorCodes.DUPLICATE_MEMBER.getErrorMessageArgs()
+        );
     }
 }

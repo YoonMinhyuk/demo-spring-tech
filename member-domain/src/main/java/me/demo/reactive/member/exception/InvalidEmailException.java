@@ -5,6 +5,9 @@ import me.demo.reactive.member.constant.MemberI18nErrorCodes;
 
 public class InvalidEmailException extends I18nDomainException {
     public InvalidEmailException() {
-        super(MemberI18nErrorCodes.INVALID_EMAIL);
+        super(
+                MemberI18nErrorCodes.INVALID_EMAIL.getCode(),
+                MemberI18nErrorCodes.INVALID_EMAIL.getErrorMessageArgs()
+        );
     }
 }

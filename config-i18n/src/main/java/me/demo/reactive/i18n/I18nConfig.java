@@ -1,4 +1,4 @@
-package me.demo.reactive.domain.adapter.config;
+package me.demo.reactive.i18n;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Configuration
-public class MessageSourceConfig {
+public class I18nConfig {
     @Bean
     @ConditionalOnMissingBean(ReloadableResourceBundleMessageSource.class)
     public MessageSourceSupport messageSource() {
