@@ -5,12 +5,12 @@ include(':eureka-server',
 
         ':config-yaml-importer',
         ':config-i18n',
+        ':config-restdocs',
 
         ':basic-web',
         ':basic-domain',
 
         ':auth',
-        ':docs',
 
         ':member-web',
         ':member-domain',

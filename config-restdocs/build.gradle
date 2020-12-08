@@ -1,0 +1,30 @@
+plugins {
+    id 'org.asciidoctor.convert'
+}
+
+dependencies {
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+test {
+    outputs.dir(snippetsDir)
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    dependsOn test
+    inputs.dir(snippetsDir)
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}

@@ -1,5 +1,9 @@
-package me.demo.reactive.global.adpater.config;
+package me.demo.reactive.restdocs.adapter.config;
 
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.restdocs.RestDocsWebTestClientConfigurationCustomizer;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,22 +15,26 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 
 @TestConfiguration
 public class RestDocsConfig {
+    @Value("${server.port:8080}")
+    private int port;
+
     @Bean
-    @Profile({"!dev", "!prd"})
+    @Profile({"test", "local"})
+    @ConditionalOnMissingBean(RestDocsWebTestClientConfigurationCustomizer.class)
     public RestDocsWebTestClientConfigurationCustomizer defaultRestDocsWebTestClientConfigurationCustomizer() {
-        return generateCustomizer("http", "127.0.0.1", 8080, false);
+        return generateCustomizer("http", "127.0.0.1", false);
     }
 
     @Bean
-    @Profile({"dev", "prd"})
+    @Profile({"dev"})
+    @ConditionalOnMissingBean(RestDocsWebTestClientConfigurationCustomizer.class)
     public RestDocsWebTestClientConfigurationCustomizer devRestDocsWebTestClientConfigurationCustomizer() {
-        return generateCustomizer("https", "me.demo.reactive", 80, true);
+        return generateCustomizer("https", "me.demo.reactive", true);
     }
 
     private RestDocsWebTestClientConfigurationCustomizer generateCustomizer(
             final String schema,
             final String host,
-            final int port,
             final boolean removePort
     ) {
         return configurer -> {
