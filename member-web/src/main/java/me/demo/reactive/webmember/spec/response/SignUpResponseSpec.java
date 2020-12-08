@@ -33,7 +33,7 @@ public class SignUpResponseSpec extends RepresentationModel<SignUpResponseSpec> 
     private void initLinks(final Long memberId) {
         add(
                 Link.of(MemberLinks.SIGN_UP.getLink()).withSelfRel(),
-                Link.of("/members/{memberId}").withRel(LinkRelation.of("link to member")).expand(memberId)
+                Link.of(MemberLinks.QUERY_A_MEMBER.getLink()).withRel(LinkRelation.of("query-a-member")).expand(memberId)
         );
     }
 }

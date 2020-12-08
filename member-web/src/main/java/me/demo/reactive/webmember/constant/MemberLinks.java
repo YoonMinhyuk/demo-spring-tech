@@ -6,7 +6,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public enum MemberLinks {
-    SIGN_UP(MemberLinks.BASE_PATH + "/sign-up");
+    SIGN_UP(MemberLinks.BASE_PATH + "/sign-up"),
+    QUERY_A_MEMBER(MemberLinks.BASE_PATH + "/{memberId}");
 
     private final static String BASE_PATH = "/members";
     private final String link;
