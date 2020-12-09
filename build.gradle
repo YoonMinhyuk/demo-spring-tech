@@ -1,3 +1,5 @@
+import java.nio.charset.StandardCharsets
+
 plugins {
     id 'org.springframework.boot' version '2.4.0' apply false
     id 'io.spring.dependency-management' version '1.0.10.RELEASE' apply false
@@ -93,14 +95,9 @@ subprojects {
             dependencies {
                 implementation project(':basic-web')
             }
-
-            def restApiGuideFile = project.file("src/docs/asciidoc/rest-api-guide.adoc")
-            if (!restApiGuideFile.exists()) {
-                println "create rest-api-guide.adoc in ${restApiGuideFile.path}"
-                restApiGuideFile.parentFile.mkdirs()
-                restApiGuideFile.createNewFile()
-            }
         }
+
+        RestDocsConfigurer.of(project).initRestDocs()
     }
 
     // DOMAIN
@@ -129,6 +126,95 @@ subprojects {
             annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
             //java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
             annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+        }
+    }
+}
+
+
+class RestDocsConfigurer {
+    private static final REST_API_GUIDE_FILE_PATH = 'src/docs/asciidoc/rest-api-guide.adoc'
+    private static final REST_API_GUIDE_FILE_CONTENT =
+            "= REST API GUIDE\n" +
+                    ":author: \n" +
+                    ":doctype: book\n" +
+                    ":app-name: \n" +
+                    ":toc: left\n" +
+                    ":toclevels: 5\n" +
+                    ":toc-title: 목차\n" +
+                    "\n" +
+                    "[[overview]]\n" +
+                    "== 개요"
+
+    private static final String CUSTOM_SNIPPETS_DIR_PATH = 'src/test/resources/org/springframework/restdocs/templates/asciidoctor'
+    private static final Map<String, String> CUSTOM_SNIPPETS = new HashMap<>();
+
+    static {
+        CUSTOM_SNIPPETS.put(
+                'request-fields.snippet',
+                "|===\n" +
+                        "|Path|Type|Optional|Description\n" +
+                        "\n" +
+                        "{{#fields}}\n" +
+                        "|{{#tableCellContent}}`+{{path}}+`{{/tableCellContent}}\n" +
+                        "|{{#tableCellContent}}`+{{type}}+`{{/tableCellContent}}\n" +
+                        "|{{#tableCellContent}}{{optional}}{{/tableCellContent}}\n" +
+                        "|{{#tableCellContent}}{{description}}{{/tableCellContent}}\n" +
+                        "\n" +
+                        "{{/fields}}\n" +
+                        "|==="
+        )
+
+        CUSTOM_SNIPPETS.put(
+                'request-parameters.snippet',
+                "|===\n" +
+                        "|Parameter|Optional|Description\n" +
+                        "\n" +
+                        "{{#parameters}}\n" +
+                        "|{{#tableCellContent}}`+{{name}}+`{{/tableCellContent}}\n" +
+                        "|{{#tableCellContent}}{{optional}}{{/tableCellContent}}\n" +
+                        "|{{#tableCellContent}}{{description}}{{/tableCellContent}}\n" +
+                        "\n" +
+                        "{{/parameters}}\n" +
+                        "|==="
+        )
+    }
+
+    private final Project project
+
+    private RestDocsConfigurer(final Project project) {
+        this.project = project
+    }
+
+    static RestDocsConfigurer of(final Project project) {
+        return new RestDocsConfigurer(project)
+    }
+
+    void initRestDocs() {
+        this.initRequestApiGuideAdoc()
+        this.initCustomSnippets()
+    }
+
+    private void initRequestApiGuideAdoc() {
+        def restApiGuideFile = project.file(REST_API_GUIDE_FILE_PATH)
+        if (!restApiGuideFile.exists()) {
+            restApiGuideFile.parentFile.mkdirs()
+            restApiGuideFile.createNewFile()
+            restApiGuideFile.append(REST_API_GUIDE_FILE_CONTENT, StandardCharsets.UTF_8.displayName())
+        }
+    }
+
+    private void initCustomSnippets() {
+        def customSnippetsDir = project.file(CUSTOM_SNIPPETS_DIR_PATH)
+        if (!customSnippetsDir.exists()) {
+            customSnippetsDir.mkdirs()
+        }
+
+        CUSTOM_SNIPPETS.forEach { snippetFileName, content ->
+            def snippet = project.file(CUSTOM_SNIPPETS_DIR_PATH.concat(snippetFileName.startsWith('/') ? snippetFileName : "/${snippetFileName}"))
+            if (!snippet.exists()) {
+                snippet.createNewFile()
+                snippet.append(content, StandardCharsets.UTF_8.displayName())
+            }
         }
     }
 }
